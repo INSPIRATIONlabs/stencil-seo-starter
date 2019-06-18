@@ -11,8 +11,6 @@ stages:
       inputs:
         versionSpec: '11.x'
       displayName: 'Install Node.js'
-    - script: 'env'
-      displayName: 'Env'
     - script: |
         sudo dotnet tool install --global Prerenderer
       displayName: 'Install prerenderer'
@@ -33,6 +31,8 @@ stages:
         cp $(Build.SourcesDirectory)/www/404.html $(Build.SourcesDirectory)/output/
       displayName: 'Prerender site'
     - script: |
+        export HOST_IP="$(hostname -i | awk '{print $1}')"
+        export BUILD_ID='$(Build.BuildId)'
         npm run browserstack
       displayName: 'Run browserstack e2e tests'
       env:
