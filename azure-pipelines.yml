@@ -30,8 +30,8 @@ stages:
         browserstackuser: $(browserstackuser)
     - task: PublishPipelineArtifact@0
       inputs:
-        artifactName: 'pipelineArtifacts'
-        targetPath: '$(System.DefaultWorkingDirectory)'
+        artifactName: 'www'
+        targetPath: '$(System.DefaultWorkingDirectory)/www'
 - stage: Release
   jobs:
   - job: Release
@@ -40,6 +40,10 @@ stages:
     variables:
     - group: secrets
     steps:
+    - task: DownloadPipelineArtifact@0
+      inputs:
+       artifactName: 'www'
+       targetPath: $(System.DefaultWorkingDirectory)/www
     - script: 'npm install -g firebase-tools'
       displayName: 'Firebase tools'
     - script: 'firebase deploy --token $(fb_ci_token) --project $(fb_production_project) --message "Release: $(Release.ReleaseName)"'

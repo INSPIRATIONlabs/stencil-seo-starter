@@ -40,12 +40,11 @@ To run the unit tests and watch for file changes during development, run:
 npm run test.watch
 ```
 
-### Install Prerenderer
+## Todo
 
-The prerenderer is based on a C# based implementation in dotnet core. 
+1. Automatically write the redirects to firebase.json
+2. Add more tests for site-loader
 
-1. Install dotnet SDK 2.2
-2. dotnet tool install prerenderer -g
+## Advanded prerenderer scenarios
 
-For details please take a look at https://github.com/INSPIRATIONlabs/prerenderer-mt
-
+We have some advanced scenarios where we render a massive amount of pages. Our prerenderer for this scenario currently only supports stencil < 1.0 and can be found under https://github.com/INSPIRATIONlabs/prerenderer-mt. This prerenderer uses a list or urls  one which can be found in the urls.json and generates a sitemap.xml.  
