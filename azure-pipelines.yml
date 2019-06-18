@@ -6,12 +6,13 @@ stages:
       vmImage: 'Ubuntu-16.04'
     variables:
     - group: secrets
-
     steps:
     - task: NodeTool@0
       inputs:
         versionSpec: '11.x'
       displayName: 'Install Node.js'
+    - script: 'env'
+      displayName: 'Env'
     - script: |
         sudo dotnet tool install --global Prerenderer
       displayName: 'Install prerenderer'
