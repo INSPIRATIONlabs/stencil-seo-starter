@@ -12,6 +12,8 @@ stages:
       inputs:
         versionSpec: '11.x'
       displayName: 'Install Node.js'
+    - script: 'env'
+      displayName: 'Env'
     - script: |
         sudo dotnet tool install --global Prerenderer
       displayName: 'Install prerenderer'
