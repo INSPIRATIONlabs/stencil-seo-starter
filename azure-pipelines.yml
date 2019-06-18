@@ -15,9 +15,6 @@ stages:
         npm install
       displayName: 'npm install'
     - script: |
-        npm install puppeteer jest-cli jest @types/puppeteer @types/jest --save-dev --save-exact
-      displayName: 'install test dependencies'
-    - script: |
         npm run test
       displayName: 'run tests'
     - script: |
