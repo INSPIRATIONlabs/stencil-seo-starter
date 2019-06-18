@@ -22,31 +22,41 @@ stages:
       displayName: 'Build'
     - script: |
         export HOST_IP="$(hostname -i | awk '{print $1}')"
-        export BUILD_ID='$(Build.BuildId)'
         npm run browserstack
       displayName: 'Run browserstack e2e tests'
       env:
         browserstackkey: $(browserstackkey)
         browserstackuser: $(browserstackuser)
+        BUILD_ID: $(Build.BuildNumber)
     - task: PublishPipelineArtifact@0
       inputs:
         artifactName: 'www'
         targetPath: '$(System.DefaultWorkingDirectory)/www'
-- stage: Release
+    - task: PublishPipelineArtifact@0
+      inputs:
+        artifactName: 'fbconfig'
+        targetPath: '$(System.DefaultWorkingDirectory)/firebase.json'
+- stage: Deploy
   jobs:
-  - job: Release
+  - deployment: DeployFirebase
     pool:
-      vmImage: 'vs2017-win2016'
+      vmImage: 'Ubuntu-16.04'
     variables:
     - group: secrets
-    steps:
-    - task: DownloadPipelineArtifact@0
-      inputs:
-       artifactName: 'www'
-       targetPath: $(System.DefaultWorkingDirectory)/www
-    - script: 'npm install -g firebase-tools'
-      displayName: 'Firebase tools'
-    - script: 'firebase deploy --token $(fb_ci_token) --project $(fb_production_project) --message "Release: $(Release.ReleaseName)"'
-      workingDirectory: '$(System.DefaultWorkingDirectory)/_INSPIRATIONlabs.website/pipelineArtifacts'
-      displayName: 'Firebase deploy'
-
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadPipelineArtifact@0
+            inputs:
+              artifactName: 'www'
+              targetPath: $(System.DefaultWorkingDirectory)/www
+          - task: DownloadPipelineArtifact@1
+            inputs:
+              artifactName: 'fbconfig'
+              targetPath: $(System.DefaultWorkingDirectory)
+          - script: 'sudo npm install -g firebase-tools'
+            displayName: 'Firebase tools'
+          - script: 'sudo firebase deploy --token $(fb_ci_token) --project $(fb_production_project) --message "Build: $(Build.BuildNumber)"'
+            displayName: 'Firebase deploy'
