@@ -24,6 +24,9 @@ stages:
         npm run build -- --prerender
       displayName: 'Build'
     - script: |
+        npm install webdriverio@4.14.4 browserstack-local@1.4.0 wdio-mocha-framework@0.6.4 chai@4.2.0 wdio-static-server-service@1.0.1
+      displayName: 'install browserstack dependencies'
+    - script: |
         export HOST_IP="$(hostname -i | awk '{print $1}')"
         npm run browserstack
       displayName: 'Run browserstack e2e tests'
