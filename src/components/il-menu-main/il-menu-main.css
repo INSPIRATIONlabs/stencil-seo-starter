@@ -1,0 +1,125 @@
+il-menu-main {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  transition: .4s cubic-bezier(.455,.03,.515,.955);
+  transition-property: background-color,color,-webkit-transform;
+  transition-property: background-color,color,transform;
+  transition-property: background-color,color,transform,-webkit-transform;
+}
+
+il-menu-main.scrolled {
+  background-color: rgba(255,255,255, 0.95);
+}
+
+il-menu-main .container {
+  display: block;
+  transition: .4s cubic-bezier(.455,.03,.515,.955);
+  transition-property: margin,border;
+  border-bottom: 1px solid rgba(255,255,255, 0.95);
+  margin: 40px 42px 0;
+  padding: 0 0 15px;
+}
+
+il-menu-main.black .container {
+  border-bottom: 1px solid rgba(0,0,0, 0.5);
+}
+
+il-menu-main.scrolled .container {
+  border-bottom: 1px solid rgba(255,255,255, 0.95);
+}
+
+il-menu-main stencil-route-link {
+  flex: 0 1 auto;
+}
+
+il-menu-main nav > stencil-route-link {
+  flex-grow: 1;
+  margin-right: 15px;
+}
+
+il-menu-main .menu__main__priority {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  overflow-y: hidden;
+  overflow-x: auto;
+  white-space: nowrap;
+  flex: unset;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+il-menu-main .menu__main__action {
+  font-size: 18px;
+  line-height: 18px;
+  font-family: var(--font-family-light, 'sans');
+  color: #ffffff;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+il-menu-main.black .menu__main__action {
+  color: #222;
+}
+
+@media (--momuras-jellyfish) {
+  il-menu-main .menu__main__action {
+    margin-left: 20px;
+  }
+}
+
+il-menu-main nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+il-menu-main .brand {
+  margin-left: 0px;
+  height: 20px;
+}
+
+il-menu-main .brand svg .il-text {
+  fill: #ffffff;
+}
+il-menu-main .brand svg {
+  width: auto;
+  height: 20px;
+}
+
+il-menu-main .brand svg.small {
+  display: block;
+}
+
+il-menu-main .brand svg.large {
+  display: none;
+}
+
+il-menu-main.scrolled .menu__main__action {
+  color: #222;
+}
+il-menu-main.scrolled .brand svg .il-text {
+  fill: #231F20;
+}
+
+il-menu-main.black .brand svg .il-text {
+  fill: #231F20;
+}
+
+il-menu-main.scrolled .container {
+  margin: 15px 20px 0 20px;
+}
+
+@media (--momuras-jellyfish) {
+  il-menu-main .brand svg.small {
+    display: none;
+  }
+  il-menu-main .brand svg.large {
+    display: block;
+  }
+}

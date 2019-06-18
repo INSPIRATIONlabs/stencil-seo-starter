@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "url": "/",
+      "indexed": true,
+      "followed": true,
+      "published": true
+    },
+    {
+      "url": "/en",
+      "indexed": true,
+      "followed": true,
+      "published": true
+    },
+    {
+      "url": "/de",
+      "indexed": true,
+      "followed": true,
+      "published": true
+    }
+  ]
+}

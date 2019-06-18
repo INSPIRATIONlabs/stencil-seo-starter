@@ -1,29 +1,24 @@
 import { Component } from '@stencil/core';
-
+import '@inspirationlabs/router';
 
 @Component({
   tag: 'app-root',
-  styleUrl: 'app-root.css',
-  shadow: true
+  styleUrl: 'app-root.css'
 })
 export class AppRoot {
 
+  private loaderProps = {
+    baseDomain: 'https://stencil-router-starter1.com'
+  }
+
   render() {
     return (
-      <div>
-        <header>
-          <h1>Stencil App Starter</h1>
-        </header>
-
-        <main>
           <stencil-router>
             <stencil-route-switch scrollTopOffset={0}>
-              <stencil-route url='/' component='app-home' exact={true} />
-              <stencil-route url='/profile/:name' component='app-profile' />
+              <stencil-route url='/fakeloremipsumdoloreset' component='il-home'></stencil-route>
+              <stencil-route component='site-loader' componentProps={this.loaderProps}/>
             </stencil-route-switch>
           </stencil-router>
-        </main>
-      </div>
     );
   }
 }

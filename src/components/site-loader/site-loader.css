@@ -1,0 +1,5 @@
+site-loader {
+    /* Component styles go here */
+
+    background: var(--background);
+}

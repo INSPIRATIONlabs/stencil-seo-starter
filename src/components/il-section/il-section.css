@@ -1,0 +1,58 @@
+il-section {
+  display: flex;
+  padding: var(--section-padding, 0 20px);
+  background-color: var(--section-background-color);
+  border-top: var(--border-top, none);
+  border-bottom: var(--border-bottom, none);
+}
+
+il-section section {
+  width: var(--section-width, auto);
+  margin: var(--section-margin, 0 auto);
+  display: flex;
+  flex-direction: var(--section-flex-direction, row);;
+  justify-content: var(--section-justify-content, flex-start);
+}
+
+il-section .content {
+  width: var(--section-content-width, auto);
+  margin: var(--section-content-margin, auto);
+}
+
+il-section .content a {
+  word-break: break-all;
+}
+
+il-section .embed-container {
+  position: relative;
+  padding-bottom: 56.25%; /* ratio 16x9 */
+  height: 0;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+}
+
+il-section .embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media (--momuras-jellyfish) {
+  il-section.hero-team {
+    --section-width: auto;
+    --section-margin: 0;
+    --section-padding: 0;
+  }
+  il-section.about {
+    --section-justify-content: center;
+    --section-content-width: auto;
+    --section-content-margin: 0 auto;
+  }
+}
+
+il-section .content img {
+  max-width: 100%;
+}

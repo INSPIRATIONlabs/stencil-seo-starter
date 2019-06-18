@@ -1,0 +1,37 @@
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '11.x'
+      displayName: 'Install Node.js'
+    - script: |
+        sudo dotnet tool install --global Prerenderer
+      displayName: 'Install prerenderer'
+    - script: |
+        npm install
+      displayName: 'npm install'
+    - script: |
+        npm run test
+      displayName: 'run tests'
+    - script: |
+        npm run build
+      displayName: 'Build'
+    - script: |
+        source /etc/profile
+        Prerenderer -u http://localhost:5000/urls.json -i $(Build.SourcesDirectory)/www/assets/prerender.js -o output -s $(Build.SourcesDirectory)/www/ -m https://stencil-router-starter1.com
+        cp $(Build.SourcesDirectory)/www/sw.js $(Build.SourcesDirectory)/output/
+        cp -r $(Build.SourcesDirectory)/www/workbox-* $(Build.SourcesDirectory)/output/
+        cp $(Build.SourcesDirectory)/www/404.html $(Build.SourcesDirectory)/output/
+      displayName: 'Prerender site'
+    - script: |
+        npm run browserstack
+      displayName: 'Run browserstack e2e tests'
+    - task: PublishPipelineArtifact@0
+      inputs:
+        artifactName: 'pipelineArtifacts'
+        targetPath: '$(System.DefaultWorkingDirectory)'

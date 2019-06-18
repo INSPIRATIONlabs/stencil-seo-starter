@@ -11,5 +11,13 @@ export const config: Config = {
       // uncomment the following line to disable service workers in production
       // serviceWorker: null
     }
+  ],
+  copy: [
+    {
+      src: 'urls.json'
+    },
+    {
+      src: '404.html'
+    }
   ]
 };

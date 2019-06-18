@@ -7,54 +7,64 @@
 
 import '@stencil/core';
 
-import '@stencil/router';
+import '@inspirationlabs/router';
 import '@stencil/state-tunnel';
 import {
+  LocationSegments,
   MatchResults,
-} from '@stencil/router';
+} from '@inspirationlabs/router';
 
 
 export namespace Components {
 
-  interface AppHome {}
-  interface AppHomeAttributes extends StencilHTMLAttributes {}
-
-  interface AppProfile {
-    'match': MatchResults;
-  }
-  interface AppProfileAttributes extends StencilHTMLAttributes {
-    'match'?: MatchResults;
-  }
-
   interface AppRoot {}
   interface AppRootAttributes extends StencilHTMLAttributes {}
+
+  interface IlMenuMain {
+    'data': any;
+  }
+  interface IlMenuMainAttributes extends StencilHTMLAttributes {
+    'data'?: any;
+  }
+
+  interface IlSection {
+    'data': any;
+  }
+  interface IlSectionAttributes extends StencilHTMLAttributes {
+    'data'?: any;
+  }
+
+  interface SiteLoader {
+    'baseDomain': string;
+    'componentProps'?: { [key: string]: any };
+    'location'?: LocationSegments;
+    'match': MatchResults;
+    'page': string;
+  }
+  interface SiteLoaderAttributes extends StencilHTMLAttributes {
+    'baseDomain'?: string;
+    'componentProps'?: { [key: string]: any };
+    'location'?: LocationSegments;
+    'match'?: MatchResults;
+    'page'?: string;
+  }
 }
 
 declare global {
   interface StencilElementInterfaces {
-    'AppHome': Components.AppHome;
-    'AppProfile': Components.AppProfile;
     'AppRoot': Components.AppRoot;
+    'IlMenuMain': Components.IlMenuMain;
+    'IlSection': Components.IlSection;
+    'SiteLoader': Components.SiteLoader;
   }
 
   interface StencilIntrinsicElements {
-    'app-home': Components.AppHomeAttributes;
-    'app-profile': Components.AppProfileAttributes;
     'app-root': Components.AppRootAttributes;
+    'il-menu-main': Components.IlMenuMainAttributes;
+    'il-section': Components.IlSectionAttributes;
+    'site-loader': Components.SiteLoaderAttributes;
   }
 
-
-  interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {}
-  var HTMLAppHomeElement: {
-    prototype: HTMLAppHomeElement;
-    new (): HTMLAppHomeElement;
-  };
-
-  interface HTMLAppProfileElement extends Components.AppProfile, HTMLStencilElement {}
-  var HTMLAppProfileElement: {
-    prototype: HTMLAppProfileElement;
-    new (): HTMLAppProfileElement;
-  };
 
   interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {}
   var HTMLAppRootElement: {
@@ -62,16 +72,36 @@ declare global {
     new (): HTMLAppRootElement;
   };
 
+  interface HTMLIlMenuMainElement extends Components.IlMenuMain, HTMLStencilElement {}
+  var HTMLIlMenuMainElement: {
+    prototype: HTMLIlMenuMainElement;
+    new (): HTMLIlMenuMainElement;
+  };
+
+  interface HTMLIlSectionElement extends Components.IlSection, HTMLStencilElement {}
+  var HTMLIlSectionElement: {
+    prototype: HTMLIlSectionElement;
+    new (): HTMLIlSectionElement;
+  };
+
+  interface HTMLSiteLoaderElement extends Components.SiteLoader, HTMLStencilElement {}
+  var HTMLSiteLoaderElement: {
+    prototype: HTMLSiteLoaderElement;
+    new (): HTMLSiteLoaderElement;
+  };
+
   interface HTMLElementTagNameMap {
-    'app-home': HTMLAppHomeElement
-    'app-profile': HTMLAppProfileElement
     'app-root': HTMLAppRootElement
+    'il-menu-main': HTMLIlMenuMainElement
+    'il-section': HTMLIlSectionElement
+    'site-loader': HTMLSiteLoaderElement
   }
 
   interface ElementTagNameMap {
-    'app-home': HTMLAppHomeElement;
-    'app-profile': HTMLAppProfileElement;
     'app-root': HTMLAppRootElement;
+    'il-menu-main': HTMLIlMenuMainElement;
+    'il-section': HTMLIlSectionElement;
+    'site-loader': HTMLSiteLoaderElement;
   }
 
 

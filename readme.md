@@ -39,3 +39,13 @@ To run the unit tests and watch for file changes during development, run:
 ```
 npm run test.watch
 ```
+
+### Install Prerenderer
+
+The prerenderer is based on a C# based implementation in dotnet core. 
+
+1. Install dotnet SDK 2.2
+2. dotnet tool install prerenderer -g
+
+For details please take a look at https://github.com/INSPIRATIONlabs/prerenderer-mt
+

@@ -1,6 +1,9 @@
 dist/
 !www/favicon.ico
 www/
+.local-chromium
+errorShots
+output
 
 *~
 *.sw[mnpcod]

@@ -1,0 +1,26 @@
+/* this is typically unused because this is the defaul in mobile first */
+@custom-media --xsmall screen and (max-width: 369px);
+@custom-media --small screen and (max-width: 599px);
+/* table portrait or phone landscape */
+@custom-media --medium screen and (min-width: 600px);
+@custom-media --medium-only screen and (min-width: 600px) and (max-width: 799px);
+/* tablet landscape */
+@custom-media --large screen and (min-width: 800px);
+@custom-media --large-only screen and (min-width: 800px) and (max-width: 1199px);
+/* desktop */
+@custom-media --xlarge screen and (min-width: 1200px);
+/* larger desktop */
+@custom-media --xxlarge screen and (min-width: 1400px);
+/* >= HD desktop */
+@custom-media --xxxlarge screen and (min-width: 1800px);
+
+
+@custom-media --giant-clam screen and (max-width: 549px);
+@custom-media --momuras-jellyfish screen and (min-width: 550px);
+@custom-media --momuras-jellyfish-only screen and (min-width: 550px) and (max-width: 999px);
+@custom-media --walrus screen and (min-width: 1000px);
+@custom-media --walrus-only screen and (min-width: 1000px) and (max-width: 1599px);
+@custom-media --whale-shark screen and (min-width: 1600px);
+
+
+@custom-selector :--heading h1, h2, h3, h4, h5, h6, .title;

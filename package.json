@@ -7,11 +7,25 @@
     "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll"
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "browserstack": "node ./node_modules/webdriverio/bin/wdio wdio.conf",
+    "browserstacknopre": "node ./node_modules/webdriverio/bin/wdio wdio.conf --baseUrl http://localhost:3333",
+    "prerender": "Prerenderer -s ./www -o ./output -i ./src/assets/prerender.js -u http://localhost:5000/urls.json -b / -r 3 -m https://stencil-router-starter1.com"
   },
-  "dependencies": {
-    "@stencil/core": "~0.16.2",
-    "@stencil/router": "~0.3.1"
-  },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@inspirationlabs/router": "^0.3.3",
+    "@stencil/core": "0.18.0",
+    "@types/jest": "23.3.14",
+    "@types/puppeteer": "1.11.1",
+    "browserstack-local": "^1.4.0",
+    "chai": "^4.2.0",
+    "jest": "23.6.0",
+    "jest-cli": "23.6.0",
+    "puppeteer": "1.11.0",
+    "wdio-mocha-framework": "^0.6.4",
+    "wdio-static-server-service": "^1.0.1",
+    "webdriverio": "^4.13.2",
+    "workbox-build": "3.4.1"
+  }
 }
