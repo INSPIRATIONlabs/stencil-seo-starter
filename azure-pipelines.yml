@@ -35,6 +35,8 @@ stages:
     - script: |
         npm run browserstack
       displayName: 'Run browserstack e2e tests'
+      env:
+        browserstackkey: $(browserstackkey)
     - task: PublishPipelineArtifact@0
       inputs:
         artifactName: 'pipelineArtifacts'
@@ -52,3 +54,4 @@ stages:
     - script: 'firebase deploy --token $(fb_ci_token) --project $(fb_production_project) --message "Release: $(Release.ReleaseName)"'
       workingDirectory: '$(System.DefaultWorkingDirectory)/_INSPIRATIONlabs.website/pipelineArtifacts'
       displayName: 'Firebase deploy'
+
