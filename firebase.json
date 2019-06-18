@@ -1,0 +1,32 @@
+{
+  "hosting": {
+    "public": "output",
+    "cleanurls": true,
+    "trailingSlash": false,
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "headers": [
+      {
+        "source": "/sw.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/de-redirect",
+        "destination": "/de",
+        "type": 301
+      }
+    ],
+    "rewrites": [
+    ]
+  }
+}
