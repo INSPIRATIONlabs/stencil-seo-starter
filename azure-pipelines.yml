@@ -37,6 +37,7 @@ stages:
       displayName: 'Run browserstack e2e tests'
       env:
         browserstackkey: $(browserstackkey)
+        browserstackuser: $(browserstackuser)
     - task: PublishPipelineArtifact@0
       inputs:
         artifactName: 'pipelineArtifacts'
