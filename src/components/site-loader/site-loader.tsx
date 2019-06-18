@@ -1,4 +1,4 @@
-import { Component, Element, Prop, State, Watch } from '@stencil/core';
+import { Component, Element, Prop, State, Watch, h } from '@stencil/core';
 import { MatchResults, LocationSegments } from '@inspirationlabs/router';
 import { LinkRelTypes } from '../../types/LinkRelTypes';
 import { OpenGraphTypes } from '../../types/OpenGraphTypes';
@@ -277,11 +277,12 @@ export class SiteLoader {
     this.removeOldMetaLinks(LinkRelTypes.canonical);
     this.removeOpengraph();
     const headers = this.renderHeaderData();
+    console.log(headers);
     for(const head of headers) {
-      if(head.vtag) {
-        const el: HTMLMetaElement = document.createElement(head.vtag);
-        for(const attr of Object.keys(head.vattrs)) {
-          el.setAttribute(attr, head.vattrs[attr]);
+      if(head.$tag$) {
+        const el: HTMLMetaElement = document.createElement(head.$tag$);
+        for(const attr of Object.keys(head.$attrs$)) {
+          el.setAttribute(attr, head.$attrs$[attr]);
           document.head.appendChild(el);
         }
       }

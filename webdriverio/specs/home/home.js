@@ -8,8 +8,9 @@ describe('home page', function () {
   it('should be able to render the page for /', function () {
     browser.url('/'); // open url
 
-    const headline = browser.getText('h1');
+    const headline = browser.getText('p.lang');
 
-    expect(headline).toBeDefined();
+    expect(headline).to.be.a('string');
+    expect(headline).equal('Please choose your language');
   });
 });

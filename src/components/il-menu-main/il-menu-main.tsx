@@ -1,4 +1,4 @@
-import { Component, Listen, Prop, Element } from '@stencil/core';
+import { Component, Listen, Prop, Element, h } from '@stencil/core';
 
 @Component({
     tag: 'il-menu-main',
@@ -50,7 +50,7 @@ export class IlMenuMain {
     }
   }
 
-  @Listen('window:scroll')
+  @Listen('scroll', { target: 'window'})
   handleScroll() {
     if (window.scrollY > 10) {
       this.el.classList.add('scrolled');

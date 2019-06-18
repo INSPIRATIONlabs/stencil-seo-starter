@@ -5,35 +5,20 @@
  */
 
 
-import '@stencil/core';
-
-import '@inspirationlabs/router';
-import '@stencil/state-tunnel';
+import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
   LocationSegments,
   MatchResults,
 } from '@inspirationlabs/router';
 
-
 export namespace Components {
-
   interface AppRoot {}
-  interface AppRootAttributes extends StencilHTMLAttributes {}
-
   interface IlMenuMain {
     'data': any;
   }
-  interface IlMenuMainAttributes extends StencilHTMLAttributes {
-    'data'?: any;
-  }
-
   interface IlSection {
     'data': any;
   }
-  interface IlSectionAttributes extends StencilHTMLAttributes {
-    'data'?: any;
-  }
-
   interface SiteLoader {
     'baseDomain': string;
     'componentProps'?: { [key: string]: any };
@@ -41,29 +26,9 @@ export namespace Components {
     'match': MatchResults;
     'page': string;
   }
-  interface SiteLoaderAttributes extends StencilHTMLAttributes {
-    'baseDomain'?: string;
-    'componentProps'?: { [key: string]: any };
-    'location'?: LocationSegments;
-    'match'?: MatchResults;
-    'page'?: string;
-  }
 }
 
 declare global {
-  interface StencilElementInterfaces {
-    'AppRoot': Components.AppRoot;
-    'IlMenuMain': Components.IlMenuMain;
-    'IlSection': Components.IlSection;
-    'SiteLoader': Components.SiteLoader;
-  }
-
-  interface StencilIntrinsicElements {
-    'app-root': Components.AppRootAttributes;
-    'il-menu-main': Components.IlMenuMainAttributes;
-    'il-section': Components.IlSectionAttributes;
-    'site-loader': Components.SiteLoaderAttributes;
-  }
 
 
   interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {}
@@ -89,28 +54,45 @@ declare global {
     prototype: HTMLSiteLoaderElement;
     new (): HTMLSiteLoaderElement;
   };
-
   interface HTMLElementTagNameMap {
-    'app-root': HTMLAppRootElement
-    'il-menu-main': HTMLIlMenuMainElement
-    'il-section': HTMLIlSectionElement
-    'site-loader': HTMLSiteLoaderElement
-  }
-
-  interface ElementTagNameMap {
     'app-root': HTMLAppRootElement;
     'il-menu-main': HTMLIlMenuMainElement;
     'il-section': HTMLIlSectionElement;
     'site-loader': HTMLSiteLoaderElement;
   }
-
-
-  export namespace JSX {
-    export interface Element {}
-    export interface IntrinsicElements extends StencilIntrinsicElements {
-      [tagName: string]: any;
-    }
-  }
-  export interface HTMLAttributes extends StencilHTMLAttributes {}
-
 }
+
+declare namespace LocalJSX {
+  interface AppRoot extends JSXBase.HTMLAttributes<HTMLAppRootElement> {}
+  interface IlMenuMain extends JSXBase.HTMLAttributes<HTMLIlMenuMainElement> {
+    'data'?: any;
+  }
+  interface IlSection extends JSXBase.HTMLAttributes<HTMLIlSectionElement> {
+    'data'?: any;
+  }
+  interface SiteLoader extends JSXBase.HTMLAttributes<HTMLSiteLoaderElement> {
+    'baseDomain'?: string;
+    'componentProps'?: { [key: string]: any };
+    'location'?: LocationSegments;
+    'match'?: MatchResults;
+    'page'?: string;
+  }
+
+  interface IntrinsicElements {
+    'app-root': AppRoot;
+    'il-menu-main': IlMenuMain;
+    'il-section': IlSection;
+    'site-loader': SiteLoader;
+  }
+}
+
+export { LocalJSX as JSX };
+
+
+declare module "@stencil/core" {
+  export namespace JSX {
+    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
+  }
+}
+
+

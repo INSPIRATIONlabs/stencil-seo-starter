@@ -47,7 +47,8 @@
     {
       "type": "il-section",
       "data": {
-        "content": "<p>Please choose your language</p><img src=\"https://images.unsplash.com/photo-1535793903079-e2360500cff1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=852&q=80\"/>"      }
+        "content": "<img src=\"https://images.unsplash.com/photo-1535793903079-e2360500cff1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=852&q=80\"/><p class=\"lang\">Please choose your language</p>"
+      }
     }
   ]
 }

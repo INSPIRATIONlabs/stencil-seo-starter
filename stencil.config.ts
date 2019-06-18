@@ -7,6 +7,7 @@ export const config: Config = {
   globalScript: 'src/global/app.ts',
   outputTargets: [
     {
+      baseUrl: 'https://stencil-seo-starter1.com/',
       type: 'www',
       // uncomment the following line to disable service workers in production
       // serviceWorker: null

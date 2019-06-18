@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "output",
+    "public": "www",
     "cleanurls": true,
     "trailingSlash": false,
     "ignore": [
