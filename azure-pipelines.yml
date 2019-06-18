@@ -38,8 +38,8 @@ stages:
       inputs:
         artifactName: 'pipelineArtifacts'
         targetPath: '$(System.DefaultWorkingDirectory)'
-- Stage: Release
-jobs:
+- stage: Release
+  jobs:
   - job: Release
     pool:
       vmImage: 'vs2017-win2016'
