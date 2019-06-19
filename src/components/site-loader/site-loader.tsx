@@ -210,7 +210,15 @@ export class SiteLoader {
   private renderHrefLangs(langs: LangData[]) {
     const hreflangs = [];
     for(const langel of langs) {
-      hreflangs.push(<link rel="alternate" hreflang={langel.language} href={langel.url}/>);
+      const tag = {
+        tag: 'link',
+        attributes: {
+          rel: 'alternate',
+          hreflang: langel.language,
+          href: langel.url
+        }
+      };
+      hreflangs.push(tag);
     }
     return hreflangs;
   }
@@ -224,15 +232,22 @@ export class SiteLoader {
     for(const elkey in graphdata) {
       if(OpenGraphTypes[elkey]) {
         const name = 'og:' + elkey;
-        ogtags.push(<meta property={name} content={graphdata[elkey]} />);
+        const tag = {
+          tag: 'meta',
+          attributes: {
+            property: name,
+            content: graphdata[elkey]
+          }
+        };
+        ogtags.push(tag);
       }
     }
     return ogtags;
   }
 
-  /**
-   * Removes existing opengraph tags
-   */
+  // /**
+  //  * Removes existing opengraph tags
+  //  */
   private removeOpengraph() {
     let ogTags: any[] = Array.from(document.head.querySelectorAll('meta[property]'));
     for(const tag of ogTags) {
@@ -263,7 +278,14 @@ export class SiteLoader {
         header = header.concat(this.renderHrefLangs(this.data.languages));
       }
       if(this.data.url) {
-        header.push(<link rel="canonical" href={this.baseDomain + this.data.url} />);
+        const tag = {
+          tag: 'link',
+          attributes: {
+            rel: 'canonical',
+            href: this.baseDomain + this.data.url
+          }
+        };
+        header.push(tag);
       }
     }
     return header;
@@ -277,12 +299,11 @@ export class SiteLoader {
     this.removeOldMetaLinks(LinkRelTypes.canonical);
     this.removeOpengraph();
     const headers = this.renderHeaderData();
-    console.log(headers);
     for(const head of headers) {
-      if(head.$tag$) {
-        const el: HTMLMetaElement = document.createElement(head.$tag$);
-        for(const attr of Object.keys(head.$attrs$)) {
-          el.setAttribute(attr, head.$attrs$[attr]);
+      if(head.tag) {
+        const el: HTMLMetaElement = document.createElement(head.tag);
+        for(const attr of Object.keys(head.attributes)) {
+          el.setAttribute(attr, head.attributes[attr]);
           document.head.appendChild(el);
         }
       }
