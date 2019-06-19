@@ -198,6 +198,7 @@ export class SiteLoader {
     let descEl = document.head.querySelector('meta[name="Description"]');
     if(!descEl) {
       descEl = document.createElement('meta');
+      descEl.setAttribute('name', 'description');
       document.head.insertBefore(descEl, titleEl.nextSibling);
     }
     descEl.setAttribute('content', description);
