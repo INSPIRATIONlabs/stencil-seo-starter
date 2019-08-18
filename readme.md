@@ -1,5 +1,7 @@
 # Stencil SEO Starter
 
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=INSPIRATIONlabs_stencil-seo-starter&metric=alert_status)](https://sonarcloud.io/dashboard?id=INSPIRATIONlabs_stencil-seo-starter)
+
 This projects sets up basic stencil based projects with a basic set of SEO relevant stuff. It's also a boilerplate to create a website with a headless CMS backend and defines a basic JSON based structure on how a page should be rendered and which attributes are needed to ensure the SEO basics like title and meta tags without creating duplications of them while crawling the website. It also defines the needed hreflang headers for multi language websites etc.
 
 ## What is stencil?
