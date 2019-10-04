@@ -17,7 +17,7 @@
     "@inspirationlabs/router": "1.0.0-4",
     "@stencil/core": "1.5.3",
     "@types/jest": "^24.0.18",
-    "@types/puppeteer": "^1.20.0",
+    "@types/puppeteer": "^1.20.1",
     "workbox-build": "4.3.1"
   }
 }
