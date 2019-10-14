@@ -1,4 +1,10 @@
-# Stencil App Starter
+# Stencil SEO Starter
+
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=INSPIRATIONlabs_stencil-seo-starter&metric=alert_status)](https://sonarcloud.io/dashboard?id=INSPIRATIONlabs_stencil-seo-starter)
+
+This projects sets up basic stencil based projects with a basic set of SEO relevant stuff. It's also a boilerplate to create a website with a headless CMS backend and defines a basic JSON based structure on how a page should be rendered and which attributes are needed to ensure the SEO basics like title and meta tags without creating duplications of them while crawling the website. It also defines the needed hreflang headers for multi language websites etc.
+
+## What is stencil?
 
 Stencil is a compiler for building fast web apps using Web Components.
 
@@ -10,10 +16,11 @@ Stencil also enables a number of key capabilities on top of Web Components, in p
 
 ## Getting Started
 
-To start a new project using Stencil, clone this repo to a new directory:
+To start a new project using Stencil SEO starter, clone this repo to a new directory:
 
 ```bash
-npm init stencil app
+npm init <initializer> <type> <project_name>
+npm init stencilseo seo seostarter
 ```
 
 and run:
@@ -40,11 +47,12 @@ To run the unit tests and watch for file changes during development, run:
 npm run test.watch
 ```
 
+### Edit and add pages to your website
+
+In src/assets/docs is a structure of json files which defines some basic pages for germand and english and a json structure to render them. These files will be loaded and rendered by the site-loader component.
+
+
 ## Todo
 
 1. Automatically write the redirects to firebase.json
 2. Add more tests for site-loader
-
-## Advanded prerenderer scenarios
-
-We have some advanced scenarios where we render a massive amount of pages. Our prerenderer for this scenario currently only supports stencil < 1.0 and can be found under https://github.com/INSPIRATIONlabs/prerenderer-mt. This prerenderer uses a list or urls  one which can be found in the urls.json and generates a sitemap.xml.  

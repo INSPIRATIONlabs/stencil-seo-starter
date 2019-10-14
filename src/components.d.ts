@@ -17,16 +17,30 @@ export namespace Components {
     /**
     * Add the data to the component
     */
-    'data': {};
+    'data': any;
   }
   interface IlSection {
+    /**
+    * Data for the section
+    */
     'data': any;
   }
   interface SiteLoader {
+    /**
+    * The basedomain for the project
+    */
     'baseDomain': string;
-    'componentProps'?: { [key: string]: any };
+    /**
+    * The location segments set by the router
+    */
     'location'?: LocationSegments;
+    /**
+    * Watch the router match
+    */
     'match': MatchResults;
+    /**
+    * The page string
+    */
     'page': string;
   }
 }
@@ -66,21 +80,35 @@ declare global {
 }
 
 declare namespace LocalJSX {
-  interface AppRoot extends JSXBase.HTMLAttributes<HTMLAppRootElement> {}
-  interface IlMenuMain extends JSXBase.HTMLAttributes<HTMLIlMenuMainElement> {
+  interface AppRoot {}
+  interface IlMenuMain {
     /**
     * Add the data to the component
     */
-    'data'?: {};
-  }
-  interface IlSection extends JSXBase.HTMLAttributes<HTMLIlSectionElement> {
     'data'?: any;
   }
-  interface SiteLoader extends JSXBase.HTMLAttributes<HTMLSiteLoaderElement> {
+  interface IlSection {
+    /**
+    * Data for the section
+    */
+    'data'?: any;
+  }
+  interface SiteLoader {
+    /**
+    * The basedomain for the project
+    */
     'baseDomain'?: string;
-    'componentProps'?: { [key: string]: any };
+    /**
+    * The location segments set by the router
+    */
     'location'?: LocationSegments;
+    /**
+    * Watch the router match
+    */
     'match'?: MatchResults;
+    /**
+    * The page string
+    */
     'page'?: string;
   }
 
@@ -97,7 +125,12 @@ export { LocalJSX as JSX };
 
 declare module "@stencil/core" {
   export namespace JSX {
-    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
+    interface IntrinsicElements {
+      'app-root': LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+      'il-menu-main': LocalJSX.IlMenuMain & JSXBase.HTMLAttributes<HTMLIlMenuMainElement>;
+      'il-section': LocalJSX.IlSection & JSXBase.HTMLAttributes<HTMLIlSectionElement>;
+      'site-loader': LocalJSX.SiteLoader & JSXBase.HTMLAttributes<HTMLSiteLoaderElement>;
+    }
   }
 }
 

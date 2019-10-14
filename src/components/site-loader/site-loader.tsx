@@ -1,4 +1,4 @@
-import { Component, Element, Prop, State, Watch, h } from "@stencil/core";
+import { Component, Element, Prop, State, Watch, h, Host } from "@stencil/core";
 import { MatchResults, LocationSegments } from "@inspirationlabs/router";
 import { LinkRelTypes } from "../../types/LinkRelTypes";
 import { OpenGraphTypes } from "../../types/OpenGraphTypes";
@@ -10,12 +10,25 @@ import { LangData } from "../../types/LangData";
   styleUrl: "site-loader.css",
 })
 export class SiteLoader {
+  /**
+   * The basedomain for the project
+   */
   @Prop() baseDomain = "https://stencil-seo-starter.com";
-
+  /**
+   * The current element
+   */
   @Element() el: HTMLSiteLoaderElement;
+  /**
+   * Watch the router match
+   */
   @Prop() match: MatchResults;
+  /**
+   * The page string
+   */
   @Prop() page: string;
-  @Prop() componentProps?: { [key: string]: any } = {};
+  /**
+   * The location segments set by the router
+   */
   @Prop() location?: LocationSegments;
 
   /**
@@ -148,7 +161,7 @@ export class SiteLoader {
    * @param data The data received from json
    */
   private renderItems(data) {
-    let Tag: any = "Div";
+    let Tag = "Div";
     if (data.type) {
       Tag = data.type;
     }
@@ -184,6 +197,8 @@ export class SiteLoader {
    * @param type LinkRelTypes
    */
   private removeOldMetaLinks(type: LinkRelTypes) {
+    // @todo specify correct type
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const links: any = document.head.querySelectorAll('link[rel="' + type + '"]');
 
     for (const el of links) {
@@ -266,6 +281,8 @@ export class SiteLoader {
   //  * Removes existing opengraph tags
   //  */
   private removeOpengraph() {
+    // @todo specify correct type
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const ogTags: any[] = Array.from(document.head.querySelectorAll("meta[property]"));
     for (const tag of ogTags) {
       if (tag.attributes && tag.attributes.property) {
@@ -359,7 +376,13 @@ export class SiteLoader {
       if (this.data.menu && this.data.menu.footer) {
         output.push(<il-menu-footer data={this.data.menu.footer}></il-menu-footer>);
       }
-      return output;
+      return (
+        <Host>
+          {output.map(out => {
+            return out;
+          })}
+        </Host>
+      );
     }
   }
 }

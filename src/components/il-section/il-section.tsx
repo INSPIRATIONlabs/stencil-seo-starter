@@ -5,6 +5,9 @@ import { Component, Prop, Element, h } from "@stencil/core";
   styleUrl: "il-section.css",
 })
 export class IlSection {
+  /**
+   * Data for the section
+   */
   @Prop() data;
 
   @Element() el: HTMLIlSectionElement;
@@ -16,7 +19,7 @@ export class IlSection {
   private addClassesToClassList(classes: string[] | string) {
     if (Array.isArray(classes) && classes.every(c => c && typeof c === "string")) {
       this.el.classList.add(...classes);
-    } else if (typeof this.data?.classes === "string") {
+    } else if (typeof this.data.classes === "string") {
       this.el.classList.add(classes as string);
     }
   }

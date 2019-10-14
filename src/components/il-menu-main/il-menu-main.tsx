@@ -8,7 +8,7 @@ export class IlMenuMain {
   /**
    * Add the data to the component
    */
-  @Prop() data = {};
+  @Prop() data;
 
   @Element() el: HTMLIlMenuMainElement;
 
