@@ -4,10 +4,10 @@
   "version": "0.0.1",
   "description": "Stencil App Starter",
   "scripts": {
-    "build": "stencil build",
+    "build": "npm run lint && stencil build",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
-    "lint": "eslint src/**",
+    "lint": "eslint --ext ts,tsx src/",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "browserstack": "node ./node_modules/webdriverio/bin/wdio wdio.conf",
     "browserstacknopre": "node ./node_modules/webdriverio/bin/wdio wdio.conf --baseUrl http://localhost:3333",
