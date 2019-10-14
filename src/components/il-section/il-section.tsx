@@ -36,17 +36,6 @@ export class IlSection {
             <slot name="start" />
             {this.data.content ? <div class="content" innerHTML={this.data.content}></div> : null}
             <slot />
-            {/* {
-              this.data.items
-              ? (this.data.items.map((item) => {
-                  if (item.type) {
-                      const Tag:any = item.type;
-                      return <Tag data={item.data}></Tag>
-                  }
-                  {item}
-              }))
-              : null
-            } */}
           </div>
         </section>
       );

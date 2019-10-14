@@ -13,7 +13,8 @@ export class IlMenuMain {
   @Element() el: HTMLIlMenuMainElement;
 
   componentWillUpdate() {
-    this.el.className = "hydrated"; // TO BE DISCUSSED: Only because when component is updating, there are still old classes which we don't need...That's why i set the default "hydrated"
+    // TO BE DISCUSSED: Only because when component is updating, there are still old classes which we don't need...That's why i set the default "hydrated"
+    this.el.className = "hydrated";
   }
 
   private addClassesToClassList(classes: string[] | string) {
