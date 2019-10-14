@@ -13,5 +13,5 @@ export enum LinkRelTypes {
   preload = "preload",
   prev = "prev",
   search = "search",
-  stylesheet = "styleshet"
+  stylesheet = "styleshet",
 }

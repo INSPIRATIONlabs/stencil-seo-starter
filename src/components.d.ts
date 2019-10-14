@@ -14,7 +14,10 @@ import {
 export namespace Components {
   interface AppRoot {}
   interface IlMenuMain {
-    'data': any;
+    /**
+    * Add the data to the component
+    */
+    'data': {};
   }
   interface IlSection {
     'data': any;
@@ -65,7 +68,10 @@ declare global {
 declare namespace LocalJSX {
   interface AppRoot extends JSXBase.HTMLAttributes<HTMLAppRootElement> {}
   interface IlMenuMain extends JSXBase.HTMLAttributes<HTMLIlMenuMainElement> {
-    'data'?: any;
+    /**
+    * Add the data to the component
+    */
+    'data'?: {};
   }
   interface IlSection extends JSXBase.HTMLAttributes<HTMLIlSectionElement> {
     'data'?: any;

@@ -1,46 +1,37 @@
-import { Component, Prop, Element, h } from '@stencil/core';
-
+import { Component, Prop, Element, h } from "@stencil/core";
 
 @Component({
-    tag: 'il-section',
-    styleUrl: 'il-section.css'
+  tag: "il-section",
+  styleUrl: "il-section.css",
 })
 export class IlSection {
+  @Prop() data;
 
-  @Prop() data: any;
-  @Element() el: HTMLElement;
+  @Element() el: HTMLIlSectionElement;
 
   componentWillUpdate() {
-    this.el.className = 'hydrated'; // TO BE DISCUSSED: Only because when component is updating, there are still old classes which we don't need...That's why i set the default "hydrated"
+    this.el.className = "hydrated"; // TO BE DISCUSSED: Only because when component is updating, there are still old classes which we don't need...That's why i set the default "hydrated"
   }
 
-  private addClassesToClassList(classes:string[] | string) {
-    if(Array.isArray(classes) && classes.every(c => c && typeof c === 'string')) {
+  private addClassesToClassList(classes: string[] | string) {
+    if (Array.isArray(classes) && classes.every(c => c && typeof c === "string")) {
       this.el.classList.add(...classes);
-    } else if (typeof this.data.classes === 'string') {
+    } else if (typeof this.data?.classes === "string") {
       this.el.classList.add(classes as string);
     }
   }
 
   render() {
     if (this.data) {
-      if(this.data.classes) {
+      if (this.data.classes) {
         this.addClassesToClassList(this.data.classes);
       }
       return (
         <section id={this.data.htmlId}>
           <div>
-            {
-              this.data.title
-              ? <h1>{this.data.title}</h1>
-              : null
-            }
+            {this.data.title ? <h1>{this.data.title}</h1> : null}
             <slot name="start" />
-            {
-              this.data.content
-              ? <div class="content" innerHTML={this.data.content}></div>
-              : null
-            }
+            {this.data.content ? <div class="content" innerHTML={this.data.content}></div> : null}
             <slot />
             {/* {
               this.data.items
