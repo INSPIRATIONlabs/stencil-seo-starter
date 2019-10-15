@@ -1,4 +1,5 @@
 import { Component, Listen, Prop, Element, h } from "@stencil/core";
+import { Helper } from "../../shared/helperClass";
 
 @Component({
   tag: "il-menu-main",
@@ -17,18 +18,10 @@ export class IlMenuMain {
     this.el.className = "hydrated";
   }
 
-  private addClassesToClassList(classes: string[] | string) {
-    if (Array.isArray(classes) && classes.every(c => c && typeof c === "string")) {
-      this.el.classList.add(...classes);
-    } else if (typeof this.data.classes === "string") {
-      this.el.classList.add(classes as string);
-    }
-  }
-
   render() {
     if (this.data) {
       if (this.data.classes) {
-        this.addClassesToClassList(this.data.classes);
+        Helper.addClassesToClassList(this.data.classes, this.el);
       }
       return (
         <header>
