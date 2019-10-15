@@ -4,7 +4,7 @@ export class Helper {
     if (Array.isArray(classes) && classes.every(c => c && typeof c === "string")) {
       classListBase.classList.add(...classes);
     } else if (typeof classes === "string") {
-      classListBase.classList.add(classes as string);
+      classListBase.classList.add(classes);
     }
   }
 }
