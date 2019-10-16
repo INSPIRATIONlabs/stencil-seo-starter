@@ -1,7 +1,7 @@
-import { IlSection } from './il-section';
+import { IlSection } from "./il-section";
 
-describe('il-section', () => {
-  it('should build', () => {
+describe("il-section", () => {
+  it("should build", () => {
     expect(new IlSection()).toBeTruthy();
   });
 });

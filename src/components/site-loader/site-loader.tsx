@@ -1,35 +1,48 @@
-import { Component, Element, Prop, State, Watch, h } from '@stencil/core';
-import { MatchResults, LocationSegments } from '@inspirationlabs/router';
-import { LinkRelTypes } from '../../types/LinkRelTypes';
-import { OpenGraphTypes } from '../../types/OpenGraphTypes';
-import { GraphData } from '../../types/GraphData';
-import { LangData } from '../../types/LangData';
+import { Component, Element, Prop, State, Watch, h, Host } from "@stencil/core";
+import { MatchResults, LocationSegments } from "@inspirationlabs/router";
+import { LinkRelTypes } from "../../types/LinkRelTypes";
+import { OpenGraphTypes } from "../../types/OpenGraphTypes";
+import { GraphData } from "../../types/GraphData";
+import { LangData } from "../../types/LangData";
 
 @Component({
-    tag: 'site-loader',
-    styleUrl: 'site-loader.css'
+  tag: "site-loader",
+  styleUrl: "site-loader.css",
 })
 export class SiteLoader {
-
-  @Prop() baseDomain: string = 'https://stencil-seo-starter.com';
-  @Element() el: HTMLElement;
+  /**
+   * The basedomain for the project
+   */
+  @Prop() baseDomain = "https://stencil-seo-starter.com";
+  /**
+   * The current element
+   */
+  @Element() el: HTMLSiteLoaderElement;
+  /**
+   * Watch the router match
+   */
   @Prop() match: MatchResults;
+  /**
+   * The page string
+   */
   @Prop() page: string;
-  @Prop() componentProps?: { [key: string]: any } = {};
+  /**
+   * The location segments set by the router
+   */
   @Prop() location?: LocationSegments;
 
   /**
    * @description The current dataset fetched by the site-loader
    */
-  @State() data: any;
+  @State() data;
 
   /**
    *
    * @param match
    */
-  @Watch('match')
+  @Watch("match")
   async computePath(match: MatchResults) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       this.fetchPageContent(this.getPathname(match)).then(() => {
         resolve();
       });
@@ -40,18 +53,23 @@ export class SiteLoader {
    * Fetches the content from the json endpoint
    * @param url the url which should be fetched
    */
-  async fetchPageContent(url?: string) {
-    const baseUrl = '';
-    const contentsPath = '/assets/docs';
+
+  /**
+   * Fetches the content from the json endpoint
+   * @param url the url which should be fetched
+   */
+  private async fetchPageContent(url?: string) {
+    const baseUrl = "";
+    const contentsPath = "/assets/docs";
     const fetchUrl = url;
-    let fullFetchUrl = '';
+    let fullFetchUrl = "";
 
     // replace double slashes in path of they exist to prevent errors
-    const renderedPath = (contentsPath + fetchUrl + '/index.json').replace('//', '/');
+    const renderedPath = (contentsPath + fetchUrl + "/index.json").replace("//", "/");
     // check if the page is defined as static or not. For static pages we load content from index.json, otherwise from CMS
     fullFetchUrl = baseUrl + renderedPath;
 
-    return this.fetchData(fullFetchUrl, this.handleDefaultRequestResponse, [ ]);
+    return this.fetchData(fullFetchUrl, this.handleDefaultRequestResponse, []);
   }
 
   /**
@@ -63,12 +81,13 @@ export class SiteLoader {
   private handleDefaultRequestResponse(res) {
     if (res.status == 404) {
       this.data = {
-        type: 404
+        type: 404,
       };
       return;
     }
-    return res.json()
-      .then((jsondata) => {
+    return res
+      .json()
+      .then(jsondata => {
         if (jsondata) {
           this.data = jsondata;
         }
@@ -85,11 +104,11 @@ export class SiteLoader {
    * @param handleResponseCb
    * @param handleResponseParams
    */
-  private async fetchData(fetchUrl: string, handleResponseCb, handleResponseParams: any[]) {
+  private async fetchData(fetchUrl: string, handleResponseCb, handleResponseParams) {
     try {
-      let res = await fetch(fetchUrl, {});
+      const res = await fetch(fetchUrl, {});
 
-      return handleResponseCb.apply(this, [ res, ...handleResponseParams ]);
+      return handleResponseCb.apply(this, [res, ...handleResponseParams]);
     } catch (err) {
       console.log(err);
     }
@@ -99,16 +118,21 @@ export class SiteLoader {
    *
    * @param match
    */
-  getPathname(match?: MatchResults) {
+
+  /**
+   *
+   * @param match
+   */
+  private getPathname(match?: MatchResults) {
     let pathname;
     let currMatch: MatchResults = this.match;
-    if(match) {
+    if (match) {
       currMatch = match;
     }
-    if(!currMatch) {
+    if (!currMatch) {
       pathname = window.location.pathname;
-      if(pathname.endsWith('/')) {
-        pathname = pathname.substring(0, pathname.length-1);
+      if (pathname.endsWith("/")) {
+        pathname = pathname.substring(0, pathname.length - 1);
       }
     } else {
       pathname = currMatch.url;
@@ -120,7 +144,7 @@ export class SiteLoader {
    * WillLoad function which loads the page contents
    */
   componentWillLoad() {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       this.fetchPageContent(this.getPathname()).then(() => {
         resolve();
       });
@@ -131,15 +155,20 @@ export class SiteLoader {
    * Render the widget elements
    * @param data The data received from json
    */
-  renderItems(data) {
-    let Tag:any = 'Div';
+
+  /**
+   * Render the widget elements
+   * @param data The data received from json
+   */
+  private renderItems(data) {
+    let Tag = "Div";
     if (data.type) {
       Tag = data.type;
     }
     const slot = [];
     const slots = {};
     if (data.data && data.data.items) {
-      data.data.items.map((item) => {
+      data.data.items.map(item => {
         if (item.slot) {
           if (!slots[item.slot]) {
             slots[item.slot] = [];
@@ -150,17 +179,17 @@ export class SiteLoader {
         }
       });
     }
-    return <Tag data={data.data}>
-      {slot.length?<div>{slot}</div>:null}
-      {Object.keys(slots).length?
-        Object.keys(slots).map((key) => {
-          let contents = slots[key];
-          return <div slot={key}>{contents}</div>;
-        })
-        :null
-      }
-    </Tag>;
-
+    return (
+      <Tag data={data.data}>
+        {slot.length ? <div>{slot}</div> : null}
+        {Object.keys(slots).length
+          ? Object.keys(slots).map(key => {
+              const contents = slots[key];
+              return <div slot={key}>{contents}</div>;
+            })
+          : null}
+      </Tag>
+    );
   }
 
   /**
@@ -168,9 +197,11 @@ export class SiteLoader {
    * @param type LinkRelTypes
    */
   private removeOldMetaLinks(type: LinkRelTypes) {
+    // @todo specify correct type
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const links: any = document.head.querySelectorAll('link[rel="' + type + '"]');
 
-    for(const el of links) {
+    for (const el of links) {
       document.head.removeChild(el);
     }
   }
@@ -180,10 +211,10 @@ export class SiteLoader {
    * @param title The title string
    */
   private renderTitle(title: string) {
-    const metaEl = document.head.querySelector('meta[charset]');
-    let titleEl = document.head.querySelector('title');
-    if(!titleEl) {
-      titleEl = document.createElement('title');
+    const metaEl = document.head.querySelector("meta[charset]");
+    let titleEl = document.head.querySelector("title");
+    if (!titleEl) {
+      titleEl = document.createElement("title");
       document.head.insertBefore(titleEl, metaEl.nextSibling);
     }
     titleEl.text = title;
@@ -194,14 +225,14 @@ export class SiteLoader {
    * @param description The meta description string
    */
   private renderDescription(description: string) {
-    const titleEl = document.head.querySelector('title');
+    const titleEl = document.head.querySelector("title");
     let descEl = document.head.querySelector('meta[name="Description"]');
-    if(!descEl) {
-      descEl = document.createElement('meta');
-      descEl.setAttribute('name', 'description');
+    if (!descEl) {
+      descEl = document.createElement("meta");
+      descEl.setAttribute("name", "description");
       document.head.insertBefore(descEl, titleEl.nextSibling);
     }
-    descEl.setAttribute('content', description);
+    descEl.setAttribute("content", description);
   }
 
   /**
@@ -210,14 +241,14 @@ export class SiteLoader {
    */
   private renderHrefLangs(langs: LangData[]) {
     const hreflangs = [];
-    for(const langel of langs) {
+    for (const langel of langs) {
       const tag = {
-        tag: 'link',
+        tag: "link",
         attributes: {
-          rel: 'alternate',
+          rel: "alternate",
           hreflang: langel.language,
-          href: langel.url
-        }
+          href: langel.url,
+        },
       };
       hreflangs.push(tag);
     }
@@ -230,15 +261,15 @@ export class SiteLoader {
    */
   private renderOpengraph(graphdata: GraphData) {
     const ogtags = [];
-    for(const elkey in graphdata) {
-      if(OpenGraphTypes[elkey]) {
-        const name = 'og:' + elkey;
+    for (const elkey in graphdata) {
+      if (OpenGraphTypes[elkey]) {
+        const name = "og:" + elkey;
         const tag = {
-          tag: 'meta',
+          tag: "meta",
           attributes: {
             property: name,
-            content: graphdata[elkey]
-          }
+            content: graphdata[elkey],
+          },
         };
         ogtags.push(tag);
       }
@@ -250,11 +281,13 @@ export class SiteLoader {
   //  * Removes existing opengraph tags
   //  */
   private removeOpengraph() {
-    let ogTags: any[] = Array.from(document.head.querySelectorAll('meta[property]'));
-    for(const tag of ogTags) {
-      if(tag.attributes && tag.attributes.property) {
+    // @todo specify correct type
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const ogTags: any[] = Array.from(document.head.querySelectorAll("meta[property]"));
+    for (const tag of ogTags) {
+      if (tag.attributes && tag.attributes.property) {
         const property = tag.attributes.property;
-        if(property && property.nodeValue && property.nodeValue.startsWith('og:')) {
+        if (property && property.nodeValue && property.nodeValue.startsWith("og:")) {
           document.head.removeChild(tag);
         }
       }
@@ -265,26 +298,25 @@ export class SiteLoader {
    * Render the headers
    */
   private renderHeaderData() {
-
     let header = [];
-    if(this.data) {
+    if (this.data) {
       this.renderTitle(this.data.title);
       this.renderDescription(this.data.description);
-      if(this.data.meta) {
-        if(this.data.meta.opengraph) {
+      if (this.data.meta) {
+        if (this.data.meta.opengraph) {
           header = header.concat(this.renderOpengraph(this.data.meta.opengraph));
         }
       }
-      if(this.data.languages && this.data.language.length > 0) {
+      if (this.data.languages && this.data.language.length > 0) {
         header = header.concat(this.renderHrefLangs(this.data.languages));
       }
-      if(this.data.url) {
+      if (this.data.url) {
         const tag = {
-          tag: 'link',
+          tag: "link",
           attributes: {
-            rel: 'canonical',
-            href: this.baseDomain + this.data.url
-          }
+            rel: "canonical",
+            href: this.baseDomain + this.data.url,
+          },
         };
         header.push(tag);
       }
@@ -300,10 +332,10 @@ export class SiteLoader {
     this.removeOldMetaLinks(LinkRelTypes.canonical);
     this.removeOpengraph();
     const headers = this.renderHeaderData();
-    for(const head of headers) {
-      if(head.tag) {
+    for (const head of headers) {
+      if (head.tag) {
         const el: HTMLMetaElement = document.createElement(head.tag);
-        for(const attr of Object.keys(head.attributes)) {
+        for (const attr of Object.keys(head.attributes)) {
           el.setAttribute(attr, head.attributes[attr]);
           document.head.appendChild(el);
         }
@@ -314,11 +346,15 @@ export class SiteLoader {
   /**
    * Change the language tag to the current language
    */
-  renderHtmlLangTag() {
-    if(this.data && this.data.language) {
-      document.querySelector('html').lang = this.data.language;
+
+  /**
+   * Change the language tag to the current language
+   */
+  private renderHtmlLangTag() {
+    if (this.data && this.data.language) {
+      document.querySelector("html").lang = this.data.language;
     } else {
-      document.querySelector('html').lang = 'en';
+      document.querySelector("html").lang = "en";
     }
   }
 
@@ -331,16 +367,22 @@ export class SiteLoader {
     this.renderHtmlLangTag();
     if (this.data && this.data.data) {
       const output = [];
-      if(this.data.menu && this.data.menu.main) {
+      if (this.data.menu && this.data.menu.main) {
         output.push(<il-menu-main data={this.data.menu.main}></il-menu-main>);
       }
-      this.data.data.map((item) => {
+      this.data.data.map(item => {
         output.push(this.renderItems(item));
       });
-      if(this.data.menu && this.data.menu.footer) {
+      if (this.data.menu && this.data.menu.footer) {
         output.push(<il-menu-footer data={this.data.menu.footer}></il-menu-footer>);
       }
-      return output;
-    };
+      return (
+        <Host>
+          {output.map(out => {
+            return out;
+          })}
+        </Host>
+      );
+    }
   }
 }

@@ -1,8 +1,7 @@
-import { SiteLoader } from './site-loader';
+import { SiteLoader } from "./site-loader";
 
-describe('site-loader', () => {
-  it('should build', () => {
+describe("site-loader", () => {
+  it("should build", () => {
     expect(new SiteLoader()).toBeTruthy();
   });
-
 });

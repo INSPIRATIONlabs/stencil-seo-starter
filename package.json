@@ -4,9 +4,10 @@
   "version": "0.0.1",
   "description": "Stencil App Starter",
   "scripts": {
-    "build": "stencil build",
+    "build": "npm run lint && stencil build",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
+    "lint": "eslint --ext ts,tsx src/",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "browserstack": "node ./node_modules/webdriverio/bin/wdio wdio.conf",
     "browserstacknopre": "node ./node_modules/webdriverio/bin/wdio wdio.conf --baseUrl http://localhost:3333",
@@ -16,8 +17,14 @@
   "devDependencies": {
     "@inspirationlabs/router": "1.0.0-4",
     "@stencil/core": "1.7.2",
+    "@stencil/eslint-plugin": "^0.1.0",
+    "@typescript-eslint/eslint-plugin": "^2.3.3",
     "@types/jest": "^24.0.19",
     "@types/puppeteer": "^1.20.2",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.18.2",
     "workbox-build": "4.3.1"
   }
 }

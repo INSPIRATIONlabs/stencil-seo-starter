@@ -9,5 +9,5 @@ export enum OpenGraphTypes {
   locale = "locale",
   localealternate = "locale:alternate",
   sitename = "site_name",
-  video = "video"
+  video = "video",
 }
