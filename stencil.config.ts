@@ -1,5 +1,5 @@
 import { Config } from '@stencil/core';
-
+const packageJson = require('./package.json');
 // https://stenciljs.com/docs/config
 
 export const config: Config = {
@@ -7,10 +7,11 @@ export const config: Config = {
   globalScript: 'src/global/app.ts',
   outputTargets: [
     {
-      baseUrl: 'https://stencil-seo-starter1.com/',
+      baseUrl: packageJson.seo.baseUrl,
       type: 'www',
       // uncomment the following line to disable service workers in production
       // serviceWorker: null
+      prerenderConfig: 'prerender.config.js'
     }
   ],
   copy: [
