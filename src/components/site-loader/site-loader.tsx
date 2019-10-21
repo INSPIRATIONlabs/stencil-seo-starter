@@ -1,5 +1,5 @@
-import { Component, Element, Prop, State, Watch, h, Host } from "@stencil/core";
-import { MatchResults, LocationSegments } from "@inspirationlabs/router";
+import { Component, Prop, State, Watch, h, Host } from "@stencil/core";
+import { MatchResults } from "@inspirationlabs/router";
 import { LinkRelTypes } from "../../types/LinkRelTypes";
 import { OpenGraphTypes } from "../../types/OpenGraphTypes";
 import { GraphData } from "../../types/GraphData";
@@ -11,25 +11,13 @@ import { LangData } from "../../types/LangData";
 })
 export class SiteLoader {
   /**
-   * The basedomain for the project
+   * The base domain for the project
    */
-  @Prop() baseDomain = "https://stencil-seo-starter.com";
+  @Prop() baseDomain = "";
   /**
-   * The current element
-   */
-  @Element() el: HTMLSiteLoaderElement;
-  /**
-   * Watch the router match
+   * Check for a router match
    */
   @Prop() match: MatchResults;
-  /**
-   * The page string
-   */
-  @Prop() page: string;
-  /**
-   * The location segments set by the router
-   */
-  @Prop() location?: LocationSegments;
 
   /**
    * @description The current dataset fetched by the site-loader
@@ -48,11 +36,6 @@ export class SiteLoader {
       });
     });
   }
-
-  /**
-   * Fetches the content from the json endpoint
-   * @param url the url which should be fetched
-   */
 
   /**
    * Fetches the content from the json endpoint
@@ -126,10 +109,10 @@ export class SiteLoader {
   private getPathname(match?: MatchResults) {
     let pathname;
     let currMatch: MatchResults = this.match;
-    if (match) {
+    if (match != null) {
       currMatch = match;
     }
-    if (!currMatch) {
+    if (currMatch == null) {
       pathname = window.location.pathname;
       if (pathname.endsWith("/")) {
         pathname = pathname.substring(0, pathname.length - 1);
@@ -181,8 +164,8 @@ export class SiteLoader {
     }
     return (
       <Tag data={data.data}>
-        {slot.length ? <div>{slot}</div> : null}
-        {Object.keys(slots).length
+        {slot.length >= 0 ? <div>{slot}</div> : null}
+        {Object.keys(slots).length >= 0
           ? Object.keys(slots).map(key => {
               const contents = slots[key];
               return <div slot={key}>{contents}</div>;
@@ -197,9 +180,7 @@ export class SiteLoader {
    * @param type LinkRelTypes
    */
   private removeOldMetaLinks(type: LinkRelTypes) {
-    // @todo specify correct type
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const links: any = document.head.querySelectorAll('link[rel="' + type + '"]');
+    const links = Array.from(document.head.querySelectorAll('link[rel="' + type + '"]'));
 
     for (const el of links) {
       document.head.removeChild(el);
@@ -213,7 +194,7 @@ export class SiteLoader {
   private renderTitle(title: string) {
     const metaEl = document.head.querySelector("meta[charset]");
     let titleEl = document.head.querySelector("title");
-    if (!titleEl) {
+    if (titleEl == null) {
       titleEl = document.createElement("title");
       document.head.insertBefore(titleEl, metaEl.nextSibling);
     }
@@ -226,8 +207,8 @@ export class SiteLoader {
    */
   private renderDescription(description: string) {
     const titleEl = document.head.querySelector("title");
-    let descEl = document.head.querySelector('meta[name="Description"]');
-    if (!descEl) {
+    let descEl = document.head.querySelector('meta[name="description"]');
+    if (descEl == null) {
       descEl = document.createElement("meta");
       descEl.setAttribute("name", "description");
       document.head.insertBefore(descEl, titleEl.nextSibling);
@@ -281,13 +262,11 @@ export class SiteLoader {
   //  * Removes existing opengraph tags
   //  */
   private removeOpengraph() {
-    // @todo specify correct type
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const ogTags: any[] = Array.from(document.head.querySelectorAll("meta[property]"));
+    const ogTags: HTMLMetaElement[] = Array.from(document.head.querySelectorAll("meta[property]"));
     for (const tag of ogTags) {
-      if (tag.attributes && tag.attributes.property) {
-        const property = tag.attributes.property;
-        if (property && property.nodeValue && property.nodeValue.startsWith("og:")) {
+      const property = tag.attributes.getNamedItem("property");
+      if (tag.attributes && property != null) {
+        if (property && property.value && property.value.startsWith("og:")) {
           document.head.removeChild(tag);
         }
       }
@@ -342,10 +321,6 @@ export class SiteLoader {
       }
     }
   }
-
-  /**
-   * Change the language tag to the current language
-   */
 
   /**
    * Change the language tag to the current language
