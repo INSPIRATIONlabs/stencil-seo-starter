@@ -164,8 +164,8 @@ export class SiteLoader {
     }
     return (
       <Tag data={data.data}>
-        {slot.length >= 0 ? <div>{slot}</div> : null}
-        {Object.keys(slots).length >= 0
+        {Array.isArray(slot) && slot.length > 0 ? <div>{slot}</div> : null}
+        {Object.keys(slots).length > 0
           ? Object.keys(slots).map(key => {
               const contents = slots[key];
               return <div slot={key}>{contents}</div>;
