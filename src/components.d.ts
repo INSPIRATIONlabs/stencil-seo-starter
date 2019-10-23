@@ -7,9 +7,7 @@
 
 
 import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
-import {
-  MatchResults,
-} from '@inspirationlabs/router';
+
 
 export namespace Components {
   interface AppRoot {}
@@ -25,49 +23,32 @@ export namespace Components {
     */
     'data': any;
   }
-  interface SiteLoader {
-    /**
-    * The base domain for the project
-    */
-    'baseDomain': string;
-    /**
-    * Check for a router match
-    */
-    'match': MatchResults;
-  }
 }
 
 declare global {
 
 
   interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {}
-  const HTMLAppRootElement: {
+  var HTMLAppRootElement: {
     prototype: HTMLAppRootElement;
     new (): HTMLAppRootElement;
   };
 
   interface HTMLIlMenuMainElement extends Components.IlMenuMain, HTMLStencilElement {}
-  const HTMLIlMenuMainElement: {
+  var HTMLIlMenuMainElement: {
     prototype: HTMLIlMenuMainElement;
     new (): HTMLIlMenuMainElement;
   };
 
   interface HTMLIlSectionElement extends Components.IlSection, HTMLStencilElement {}
-  const HTMLIlSectionElement: {
+  var HTMLIlSectionElement: {
     prototype: HTMLIlSectionElement;
     new (): HTMLIlSectionElement;
-  };
-
-  interface HTMLSiteLoaderElement extends Components.SiteLoader, HTMLStencilElement {}
-  const HTMLSiteLoaderElement: {
-    prototype: HTMLSiteLoaderElement;
-    new (): HTMLSiteLoaderElement;
   };
   interface HTMLElementTagNameMap {
     'app-root': HTMLAppRootElement;
     'il-menu-main': HTMLIlMenuMainElement;
     'il-section': HTMLIlSectionElement;
-    'site-loader': HTMLSiteLoaderElement;
   }
 }
 
@@ -85,22 +66,11 @@ declare namespace LocalJSX {
     */
     'data'?: any;
   }
-  interface SiteLoader {
-    /**
-    * The base domain for the project
-    */
-    'baseDomain'?: string;
-    /**
-    * Check for a router match
-    */
-    'match'?: MatchResults;
-  }
 
   interface IntrinsicElements {
     'app-root': AppRoot;
     'il-menu-main': IlMenuMain;
     'il-section': IlSection;
-    'site-loader': SiteLoader;
   }
 }
 
@@ -113,7 +83,6 @@ declare module "@stencil/core" {
       'app-root': LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
       'il-menu-main': LocalJSX.IlMenuMain & JSXBase.HTMLAttributes<HTMLIlMenuMainElement>;
       'il-section': LocalJSX.IlSection & JSXBase.HTMLAttributes<HTMLIlSectionElement>;
-      'site-loader': LocalJSX.SiteLoader & JSXBase.HTMLAttributes<HTMLSiteLoaderElement>;
     }
   }
 }
