@@ -72,7 +72,7 @@ export class IlMenuMain {
               </stencil-route-link>
               <div class="menu__main__priority">
                 {this.data && this.data.items
-                  ? this.data.items.map(item => {
+                  ? this.data.items.map((item) => {
                       return (
                         <stencil-route-link anchorClass="menu__main__action" url={item.href} anchorTitle={item.title}>
                           {item.title}
