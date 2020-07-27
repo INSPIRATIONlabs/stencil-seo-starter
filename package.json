@@ -17,7 +17,7 @@
   "devDependencies": {
     "@inspirationlabs/il-site-loader": "0.0.1",
     "@inspirationlabs/router": "1.0.0-4",
-    "@stencil/core": "1.16.5",
+    "@stencil/core": "1.17.1",
     "@stencil/eslint-plugin": "^0.2.0",
     "@types/jest": "^26.0.7",
     "@types/puppeteer": "^3.0.1",
