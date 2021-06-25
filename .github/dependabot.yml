@@ -1,0 +1,21 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  reviewers:
+  - dominicboettger
+  ignore:
+  - dependency-name: "@types/jest"
+    versions:
+    - 26.0.21
+    - 26.0.22
+  - dependency-name: "@stencil/core"
+    versions:
+    - 2.3.0
+    - 2.4.0
+    - 2.5.0
+    - 2.5.1
